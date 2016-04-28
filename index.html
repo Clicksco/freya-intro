@@ -1,0 +1,538 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Freya</title>
+    <meta name="description" content="Introduction to Freya">
+    <meta name="author" content="Tony Williams">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/night.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        <div class="tip" id="fs1">namespace Freya</div>
+<div class="tip" id="fs2">namespace Freya.Core</div>
+<div class="tip" id="fs3">Multiple items<br />module Freya<br /><br />from Freya.Core<br /><br />--------------------<br />namespace Freya<br /><br />--------------------<br />type Freya&lt;&#39;T&gt; = FreyaState -&gt; Async&lt;&#39;T * FreyaState&gt;<br /><br />Full name: Freya.Core.Types.Freya&lt;_&gt;</div>
+<div class="tip" id="fs4">namespace Freya.Machine</div>
+<div class="tip" id="fs5">namespace Freya.Machine.Extensions</div>
+<div class="tip" id="fs6">namespace Freya.Machine.Extensions.Http</div>
+<div class="tip" id="fs7">namespace Microsoft</div>
+<div class="tip" id="fs8">namespace Owin</div>
+<div class="tip" id="fs9">namespace System</div>
+<div class="tip" id="fs10">namespace System.IO</div>
+<div class="tip" id="fs11">val freya : FreyaBuilder<br /><br />Full name: Freya.Core.Syntax.freya</div>
+<div class="tip" id="fs12">module State<br /><br />from Freya.Core.Freya</div>
+<div class="tip" id="fs13">val get : state:&#39;a -&gt; Async&lt;&#39;a * &#39;a&gt;<br /><br />Full name: Freya.Core.Freya.State.get</div>
+<div class="tip" id="fs14">type Environment =<br />&#160;&#160;static member CommandLine : string<br />&#160;&#160;static member CurrentDirectory : string with get, set<br />&#160;&#160;static member Exit : exitCode:int -&gt; unit<br />&#160;&#160;static member ExitCode : int with get, set<br />&#160;&#160;static member ExpandEnvironmentVariables : name:string -&gt; string<br />&#160;&#160;static member FailFast : message:string -&gt; unit + 1 overload<br />&#160;&#160;static member GetCommandLineArgs : unit -&gt; string[]<br />&#160;&#160;static member GetEnvironmentVariable : variable:string -&gt; string + 1 overload<br />&#160;&#160;static member GetEnvironmentVariables : unit -&gt; IDictionary + 1 overload<br />&#160;&#160;static member GetFolderPath : folder:SpecialFolder -&gt; string + 1 overload<br />&#160;&#160;...<br />&#160;&#160;nested type SpecialFolder<br />&#160;&#160;nested type SpecialFolderOption<br /><br />Full name: System.Environment</div>
+<div class="tip" id="fs15">Multiple items<br />namespace System.Configuration<br /><br />--------------------<br />module Configuration<br /><br />from Freya.Machine.Extensions.Http.Syntax<br /><br />--------------------<br />module Configuration<br /><br />from Freya.Machine</div>
+<div class="tip" id="fs16">Multiple items<br />module OwinAppFunc<br /><br />from Freya.Core.Integration<br /><br />--------------------<br />type OwinAppFunc = Func&lt;OwinEnvironment,Threading.Tasks.Task&gt;<br /><br />Full name: Freya.Core.Integration.OwinAppFunc</div>
+<div class="tip" id="fs17">val ofFreya : freya:&#39;a -&gt; OwinAppFunc (requires member Freya)<br /><br />Full name: Freya.Core.Integration.OwinAppFunc.ofFreya</div>
+<div class="tip" id="fs18">Multiple items<br />type EntryPointAttribute =<br />&#160;&#160;inherit Attribute<br />&#160;&#160;new : unit -&gt; EntryPointAttribute<br /><br />Full name: Microsoft.FSharp.Core.EntryPointAttribute<br /><br />--------------------<br />new : unit -&gt; EntryPointAttribute</div>
+<div class="tip" id="fs19">union case FreyaMachineNode.Start: FreyaMachineNode</div>
+<div class="tip" id="fs20">val ignore : value:&#39;T -&gt; unit<br /><br />Full name: Microsoft.FSharp.Core.Operators.ignore</div>
+<div class="tip" id="fs21">type Console =<br />&#160;&#160;static member BackgroundColor : ConsoleColor with get, set<br />&#160;&#160;static member Beep : unit -&gt; unit + 1 overload<br />&#160;&#160;static member BufferHeight : int with get, set<br />&#160;&#160;static member BufferWidth : int with get, set<br />&#160;&#160;static member CapsLock : bool<br />&#160;&#160;static member Clear : unit -&gt; unit<br />&#160;&#160;static member CursorLeft : int with get, set<br />&#160;&#160;static member CursorSize : int with get, set<br />&#160;&#160;static member CursorTop : int with get, set<br />&#160;&#160;static member CursorVisible : bool with get, set<br />&#160;&#160;...<br /><br />Full name: System.Console</div>
+<div class="tip" id="fs22">Console.WriteLine() : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Console.WriteLine(value: string) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Console.WriteLine(value: obj) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Console.WriteLine(value: uint64) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Console.WriteLine(value: int64) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Console.WriteLine(value: uint32) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Console.WriteLine(value: int) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Console.WriteLine(value: float32) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Console.WriteLine(value: float) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em><br />Console.WriteLine(value: decimal) : unit<br />&#160;&#160;&#160;<em>(+0 other overloads)</em></div>
+<div class="tip" id="fs23">Console.ReadLine() : string</div>
+<div class="tip" id="fs24">namespace Freya.Lenses</div>
+<div class="tip" id="fs25">namespace Freya.Lenses.Http</div>
+<div class="tip" id="fs26">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs27">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs28">Multiple items<br />module Map<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type Map&lt;&#39;Key,&#39;Value (requires comparison)&gt; =<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IComparable<br />&#160;&#160;interface IEnumerable&lt;KeyValuePair&lt;&#39;Key,&#39;Value&gt;&gt;<br />&#160;&#160;interface ICollection&lt;KeyValuePair&lt;&#39;Key,&#39;Value&gt;&gt;<br />&#160;&#160;interface IDictionary&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;new : elements:seq&lt;&#39;Key * &#39;Value&gt; -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;member Add : key:&#39;Key * value:&#39;Value -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;member ContainsKey : key:&#39;Key -&gt; bool<br />&#160;&#160;override Equals : obj -&gt; bool<br />&#160;&#160;member Remove : key:&#39;Key -&gt; Map&lt;&#39;Key,&#39;Value&gt;<br />&#160;&#160;...<br /><br />Full name: Microsoft.FSharp.Collections.Map&lt;_,_&gt;<br /><br />--------------------<br />new : elements:seq&lt;&#39;Key * &#39;Value&gt; -&gt; Map&lt;&#39;Key,&#39;Value&gt;</div>
+<div class="tip" id="fs29">val empty&lt;&#39;Key,&#39;T (requires comparison)&gt; : Map&lt;&#39;Key,&#39;T&gt; (requires comparison)<br /><br />Full name: Microsoft.FSharp.Collections.Map.empty</div>
+<div class="tip" id="fs30">type Type =<br />&#160;&#160;inherit MemberInfo<br />&#160;&#160;member Assembly : Assembly<br />&#160;&#160;member AssemblyQualifiedName : string<br />&#160;&#160;member Attributes : TypeAttributes<br />&#160;&#160;member BaseType : Type<br />&#160;&#160;member ContainsGenericParameters : bool<br />&#160;&#160;member DeclaringMethod : MethodBase<br />&#160;&#160;member DeclaringType : Type<br />&#160;&#160;member Equals : o:obj -&gt; bool + 1 overload<br />&#160;&#160;member FindInterfaces : filter:TypeFilter * filterCriteria:obj -&gt; Type[]<br />&#160;&#160;member FindMembers : memberType:MemberTypes * bindingAttr:BindingFlags * filter:MemberFilter * filterCriteria:obj -&gt; MemberInfo[]<br />&#160;&#160;...<br /><br />Full name: System.Type</div>
+<div class="tip" id="fs31">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.int<br /><br />--------------------<br />type int = int32<br /><br />Full name: Microsoft.FSharp.Core.int<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int<br /><br />Full name: Microsoft.FSharp.Core.int&lt;_&gt;</div>
+<div class="tip" id="fs32">namespace System.Text</div>
+<div class="tip" id="fs33">val init : x:&#39;T -&gt; state:FreyaState -&gt; Async&lt;&#39;T * FreyaState&gt;<br /><br />Full name: Freya.Core.Freya.init</div>
+<div class="tip" id="fs34"></div>
+<div class="tip" id="fs35">union case Option.None: Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs36">Multiple items<br />namespace System.Data<br /><br />--------------------<br />namespace Microsoft.FSharp.Data</div>
+<div class="tip" id="fs37">val freyaMachine : FreyaMachineBuilder<br /><br />Full name: Freya.Machine.Syntax.freyaMachine</div>
+<div class="tip" id="fs38">val using : resource:&#39;T -&gt; action:(&#39;T -&gt; &#39;U) -&gt; &#39;U (requires &#39;T :&gt; IDisposable)<br /><br />Full name: Microsoft.FSharp.Core.Operators.using</div>
+<div class="tip" id="fs39">val http : FreyaMachineExtension<br /><br />Full name: Freya.Machine.Extensions.Http.Extension.http</div>
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h3>Freya</h3>
+<p><img src="images/freya.png" alt="Freya visual debugging" /></p>
+</section>
+<section >
+<h1>Contents</h1>
+<ul>
+<li>History</li>
+<li>Freya</li>
+<li>Examples</li>
+<li>Machine/Leness</li>
+<li>Questions?</li>
+</ul>
+</section>
+<section >
+<section >
+<h1>History</h1>
+</section>
+<section >
+<h1>OWIN</h1>
+<blockquote>
+<p>Open Web Interface for .NET</p>
+</blockquote>
+</section>
+<section >
+<h3>Problems:</h3>
+<ul>
+<li>Hard to break away from Asp.net/IIS</li>
+<li>Lot of repetition (E.G. auth for each framework)</li>
+</ul>
+<aside class="notes">
+Designed to solve a couple of existing problems<br/>
+IIS = Slow, System.Web = Heavy <br/>
+</aside>
+</section>
+<section >
+<h3>Goal: A standard interface between the server and application</h3>
+<aside class="notes">
+And thats what we've got now'<br/>
+</aside>
+</section>
+<section >
+<h2>Support Includes:</h2>
+<h3>Host</h3>
+<ul>
+<li>Katana</li>
+<li>Kestrel</li>
+<li>Nowin</li>
+<li>Suave</li>
+<li>IIS/Express Adapter</li>
+</ul>
+<h3>Application</h3>
+<ul>
+<li>Nancy</li>
+<li>Signal R</li>
+<li>Asp.net</li>
+<li>ServiceStack</li>
+<li>etc</li>
+</ul>
+</section>
+</section>
+<section >
+<section >
+<h1>Freya</h1>
+</section>
+<section >
+<h2>Gist</h2>
+<ul>
+<li>Function style web programming stack built on OWIN</li>
+<li>HTTP is Functional</li>
+<li>Enforce the pit of success</li>
+<li>It's a library, not a framework</li>
+</ul>
+</section>
+<section >
+<h1>Library</h1>
+<p><img src="http://tomasp.net/blog/2015/library-frameworks/diagram-narrow.png" alt="Lib" /></p>
+</section>
+<section >
+<h1>Framework</h1>
+<p><img src="http://tomasp.net/blog/2015/library-frameworks/compose.png" alt="Framework" /></p>
+</section>
+<section >
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">module</span> <span class="i">MyWebSite</span>
+
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs9', 12)" onmouseover="showTip(event, 'fs9', 12)" class="i">System</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs9', 13)" onmouseover="showTip(event, 'fs9', 13)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 14)" onmouseover="showTip(event, 'fs10', 14)" class="i">IO</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 15)" onmouseover="showTip(event, 'fs3', 15)" class="i">Freya</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 16)" onmouseover="showTip(event, 'fs2', 16)" class="i">Core</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs7', 17)" onmouseover="showTip(event, 'fs7', 17)" class="i">Microsoft</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs8', 18)" onmouseover="showTip(event, 'fs8', 18)" class="i">Owin</span><span class="o">.</span><span class="i">Hosting</span>
+
+<span class="k">let</span> <span class="i">helloWorld</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs11', 19)" onmouseover="showTip(event, 'fs11', 19)" class="i">freya</span> {
+        <span class="k">let</span> <span class="i">text</span> <span class="o">=</span> <span class="s">&quot;Hello World&quot;B</span>
+        <span class="k">let!</span> <span class="i">state</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs3', 20)" onmouseover="showTip(event, 'fs3', 20)" class="i">Freya</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 21)" onmouseover="showTip(event, 'fs12', 21)" class="i">State</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 22)" onmouseover="showTip(event, 'fs13', 22)" class="i">get</span>
+        <span class="i">state</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 23)" onmouseover="showTip(event, 'fs14', 23)" class="i">Environment</span><span class="o">.</span>[<span class="s">&quot;owin.ResponseStatusCode&quot;</span>] <span class="o">&lt;-</span> <span class="n">200</span>
+        <span class="i">state</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 24)" onmouseover="showTip(event, 'fs14', 24)" class="i">Environment</span><span class="o">.</span>[<span class="s">&quot;owin.RepsonseReasonPhrase&quot;</span>] <span class="o">&lt;-</span> <span class="s">&quot;Awesome&quot;</span>
+        <span class="i">state</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 25)" onmouseover="showTip(event, 'fs14', 25)" class="i">Environment</span><span class="o">.</span>[<span class="s">&quot;owin.ResponseBody&quot;</span>] <span class="o">:?&gt;</span> <span class="i">Stream</span>
+            <span class="o">|&gt;</span> <span class="k">fun</span> <span class="i">x</span> <span class="k">-&gt;</span> <span class="i">x</span><span class="o">.</span><span class="i">Write</span> (<span class="i">text</span>, <span class="n">0</span>, <span class="i">text</span><span class="o">.</span><span class="i">Length</span>)
+        }
+
+<span class="k">type</span> <span class="i">Exercise</span>() <span class="o">=</span>
+    <span class="k">member</span> <span class="i">__</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 26)" onmouseover="showTip(event, 'fs15', 26)" class="i">Configuration</span>() <span class="o">=</span>
+        <span onmouseout="hideTip(event, 'fs16', 27)" onmouseover="showTip(event, 'fs16', 27)" class="i">OwinAppFunc</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 28)" onmouseover="showTip(event, 'fs17', 28)" class="i">ofFreya</span> <span class="i">helloWorld</span>
+
+[&lt;<span onmouseout="hideTip(event, 'fs18', 29)" onmouseover="showTip(event, 'fs18', 29)" class="i">EntryPoint</span>&gt;]
+<span class="k">let</span> <span class="i">main</span> _ <span class="o">=</span>
+    <span class="k">let</span> <span class="i">url</span> <span class="o">=</span> <span class="s">&quot;http://localhost:8080&quot;</span>
+    <span class="i">WebApp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 30)" onmouseover="showTip(event, 'fs19', 30)" class="i">Start</span><span class="o">&lt;</span><span class="i">Exercise</span><span class="o">&gt;</span> (<span class="i">url</span>) <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 31)" onmouseover="showTip(event, 'fs20', 31)" class="i">ignore</span>
+    <span onmouseout="hideTip(event, 'fs21', 32)" onmouseover="showTip(event, 'fs21', 32)" class="i">Console</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 33)" onmouseover="showTip(event, 'fs22', 33)" class="i">WriteLine</span>(<span class="s">&quot;Serving site at &quot;</span> <span class="o">+</span> <span class="i">url</span>)
+    <span onmouseout="hideTip(event, 'fs21', 34)" onmouseover="showTip(event, 'fs21', 34)" class="i">Console</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 35)" onmouseover="showTip(event, 'fs22', 35)" class="i">WriteLine</span>(<span class="s">&quot;Press ENTER to cancel&quot;</span>)
+    <span onmouseout="hideTip(event, 'fs21', 36)" onmouseover="showTip(event, 'fs21', 36)" class="i">Console</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 37)" onmouseover="showTip(event, 'fs23', 37)" class="i">ReadLine</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs20', 38)" onmouseover="showTip(event, 'fs20', 38)" class="i">ignore</span>
+</code></pre></td>
+</tr>
+</table>
+</section>
+<section >
+<h3>Provides several layers of abstractions</h3>
+<img src="images/freya-stack.svg" alt="Freya logo"  style="background-color:#fff;" />
+<aside class="notes">
+start at Freya.Core<br/>
+work way up to Types/Arachne then lenses then machine<br/>
+Show previous slide and how weakly type it is due to owin'<br/>
+</aside>
+</section>
+<section >
+<h3>Strongly Typed with Arachne</h3>
+<ul>
+<li>RFC 7230 – Message Syntax and Routing</li>
+<li>RFC 7231 – Semantics and Content</li>
+<li>RFC 7232 – Conditional Requests</li>
+<li>RFC 7233 – Range Requests</li>
+<li>RFC 7234 – Caching</li>
+<li>RFC 7235 – Authentication</li>
+<li>Everything HTTP is typed</li>
+</ul>
+</section>
+<section >
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Working with Freya lenses</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 39)" onmouseover="showTip(event, 'fs3', 39)" class="i">Freya</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs24', 40)" onmouseover="showTip(event, 'fs24', 40)" class="i">Lenses</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs25', 41)" onmouseover="showTip(event, 'fs25', 41)" class="i">Http</span>
+
+<span class="c">// Working directly with the types if required</span>
+<span class="k">open</span> <span class="i">Arachne</span><span class="o">.</span><span class="i">Http</span>
+
+<span class="c">// The previous way, using raw access to the state</span>
+<span class="k">let</span> <span class="i">readPathRaw</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs11', 42)" onmouseover="showTip(event, 'fs11', 42)" class="i">freya</span> {
+        <span class="k">let!</span> <span class="i">state</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs3', 43)" onmouseover="showTip(event, 'fs3', 43)" class="i">Freya</span><span class="o">.</span><span class="i">getState</span>
+        <span class="k">return</span> <span class="i">state</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 44)" onmouseover="showTip(event, 'fs14', 44)" class="i">Environment</span><span class="o">.</span>[<span class="s">&quot;owin.RequestPath&quot;</span>] <span class="o">:?&gt;</span> <span onmouseout="hideTip(event, 'fs26', 45)" onmouseover="showTip(event, 'fs26', 45)" class="i">string</span> }
+
+<span class="c">// The lens way</span>
+<span class="k">let</span> <span class="i">readPathLens</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs11', 46)" onmouseover="showTip(event, 'fs11', 46)" class="i">freya</span> {
+        <span class="k">return!</span> <span onmouseout="hideTip(event, 'fs3', 47)" onmouseover="showTip(event, 'fs3', 47)" class="i">Freya</span><span class="o">.</span><span class="i">get</span> <span class="i">Request</span><span class="o">.</span><span class="i">path_</span> }
+</code></pre></td>
+</tr>
+</table>
+</section>
+<section >
+<h3>Typed</h3>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">readAccept</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs11', 48)" onmouseover="showTip(event, 'fs11', 48)" class="i">freya</span> {
+        <span class="k">return!</span> <span onmouseout="hideTip(event, 'fs3', 49)" onmouseover="showTip(event, 'fs3', 49)" class="i">Freya</span><span class="o">.</span><span class="i">get</span> <span class="i">Request</span><span class="o">.</span><span class="i">Headers</span><span class="o">.</span><span class="i">accept_</span> }
+
+<span class="c">// Might return something like...</span>
+
+<span onmouseout="hideTip(event, 'fs27', 50)" onmouseover="showTip(event, 'fs27', 50)" class="i">Some</span> (<span class="i">Accept</span> [
+    <span class="i">AcceptableMedia</span> (
+        <span class="i">Open</span> (<span class="i">Parameters</span> (<span onmouseout="hideTip(event, 'fs28', 51)" onmouseover="showTip(event, 'fs28', 51)" class="i">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 52)" onmouseover="showTip(event, 'fs29', 52)" class="i">empty</span>)),
+        <span onmouseout="hideTip(event, 'fs27', 53)" onmouseover="showTip(event, 'fs27', 53)" class="i">Some</span> (<span class="i">AcceptParameters</span> (<span class="i">Weight</span> <span class="n">0.3</span>, <span onmouseout="hideTip(event, 'fs5', 54)" onmouseover="showTip(event, 'fs5', 54)" class="i">Extensions</span> (<span onmouseout="hideTip(event, 'fs28', 55)" onmouseover="showTip(event, 'fs28', 55)" class="i">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 56)" onmouseover="showTip(event, 'fs29', 56)" class="i">empty</span>))))
+    <span class="i">AcceptableMedia</span> (
+        <span class="i">Partial</span> (<span onmouseout="hideTip(event, 'fs30', 57)" onmouseover="showTip(event, 'fs30', 57)" class="i">Type</span> <span class="s">&quot;text&quot;</span>, <span class="i">Parameters</span> (<span onmouseout="hideTip(event, 'fs28', 58)" onmouseover="showTip(event, 'fs28', 58)" class="i">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 59)" onmouseover="showTip(event, 'fs29', 59)" class="i">empty</span>)),
+        <span onmouseout="hideTip(event, 'fs27', 60)" onmouseover="showTip(event, 'fs27', 60)" class="i">Some</span> (<span class="i">AcceptParameters</span> (<span class="i">Weight</span> <span class="n">0.9</span>, <span onmouseout="hideTip(event, 'fs5', 61)" onmouseover="showTip(event, 'fs5', 61)" class="i">Extensions</span> (<span onmouseout="hideTip(event, 'fs28', 62)" onmouseover="showTip(event, 'fs28', 62)" class="i">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 63)" onmouseover="showTip(event, 'fs29', 63)" class="i">empty</span>)))) ])
+</code></pre></td>
+</tr>
+</table>
+</section>
+</section>
+<section >
+<section >
+<h1>Lenses</h1>
+<blockquote>
+<p>Lenses are a functional technique to enable us to work with complex data structures more easily</p>
+</blockquote>
+</section>
+<section >
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span class="i">Page</span> <span class="o">=</span> { <span class="i">Number</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs31', 64)" onmouseover="showTip(event, 'fs31', 64)" class="i">int</span>; <span class="i">Footnote</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs26', 65)" onmouseover="showTip(event, 'fs26', 65)" class="i">string</span>; <span class="i">Content</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs26', 66)" onmouseover="showTip(event, 'fs26', 66)" class="i">string</span> }
+<span class="k">type</span> <span class="i">Book</span> <span class="o">=</span> { <span class="i">Title</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs26', 67)" onmouseover="showTip(event, 'fs26', 67)" class="i">string</span>; <span class="i">Page</span><span class="o">:</span> <span class="i">Page</span> }
+<span class="k">type</span> <span class="i">Author</span> <span class="o">=</span> { <span class="i">Name</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs26', 68)" onmouseover="showTip(event, 'fs26', 68)" class="i">string</span>; <span class="i">Book</span><span class="o">:</span> <span class="i">Book</span> }
+
+<span class="c">// Given a Book we can trivially retrieve its page&#39;s content:</span>
+<span class="k">let</span> <span class="i">pageContent</span> <span class="o">=</span> <span class="i">author</span><span class="o">.</span><span class="i">Book</span><span class="o">.</span><span class="i">Page</span><span class="o">.</span><span class="i">Content</span>
+
+<span class="c">// Setting the page nummber is a bit more problematic though. </span>
+<span class="c">//If this were mutable, we could just do:</span>
+<span class="i">author</span><span class="o">.</span><span class="i">Book</span><span class="o">.</span><span class="i">Page</span><span class="o">.</span><span class="i">Number</span> <span class="o">&lt;-</span> <span class="n">15</span>
+
+<span class="c">// But it&#39;s not, so we use F# copy-and-update syntax:</span>
+<span class="k">let</span> <span class="i">author2</span> <span class="o">=</span> { <span class="i">author</span> <span class="k">with</span> <span class="i">Book</span> <span class="o">=</span> 
+                { <span class="i">author</span><span class="o">.</span><span class="i">Book</span> <span class="k">with</span> <span class="i">Page</span> <span class="o">=</span> 
+                    { <span class="i">author</span><span class="o">.</span><span class="i">Book</span><span class="o">.</span><span class="i">Page</span> <span class="k">with</span> <span class="i">Number</span> <span class="o">=</span> <span class="n">15</span> } } }
+                    
+</code></pre></td>
+</tr>
+</table>
+<aside class="notes">
+Lens get around this issue but the syntax is up part of the language and up to each library, Freya makes use of it.<br/>
+</aside>
+</section>
+</section>
+<section >
+<section >
+<h1>Machines</h1>
+<blockquote>
+<p>A way of navigating graphs</p>
+</blockquote>
+<aside class="notes">
+Machine is simple model, but it can be quite a big shift in thinking for those who are new to using it. It works differently to how people are using to programming for the web, which is commonly quite imperative and often focuses primarily on the mechanical nature of web programming. Even within the most commonly used “high level” frameworks such as ASP.NET MVC, while the mechanics of dealing with requests and responses are quite significantly abstracted, the logic of handling requests and deciding on appropriate responses is largely left to the programmer to implement.'<br/>
+</aside>
+</section>
+<section >
+<h1>HTTP is complex</h1>
+<aside class="notes">
+The basic concept at the heart of the machine approach is to treat the handling of a request as a series of decisions. Each decision will get us closer to being able to send the most appropriate reponse to the client. These decisions when chained together form a decision graph and the machine navigates through it <br/>
+</aside>
+</section>
+<section >
+<p><img src="images/http-state-diagram.png" alt="Http machine" /></p>
+<aside class="notes">
+webmachine (Erlang - riak makers) and Liberator (Clojure). Attempt the standardise web programing in functional languages<br/>
+</aside>
+</section>
+<section >
+<h3>A request</h3>
+<p><img src="images/graph.png" alt="Graph" /></p>
+<aside class="notes">
+The machine navigating a decision for a request<br/>
+</aside>
+</section>
+<section >
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+<span class="l">35: </span>
+<span class="l">36: </span>
+<span class="l">37: </span>
+<span class="l">38: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">// Properties</span>
+<span class="k">let</span> <span class="i">mediaTypes</span> <span class="o">=</span> [ <span class="i">MediaType</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 69)" onmouseover="showTip(event, 'fs32', 69)" class="i">Text</span> ]
+<span class="k">let</span> <span class="i">methods</span> <span class="o">=</span> [ <span class="i">GET</span> ]
+
+<span class="c">// Decisions</span>
+<span class="k">let</span> <span class="i">available</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs3', 70)" onmouseover="showTip(event, 'fs3', 70)" class="i">Freya</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs33', 71)" onmouseover="showTip(event, 'fs33', 71)" class="i">init</span> <span class="k">true</span>
+
+<span class="c">// Handlers</span>
+<span class="k">let</span> <span class="i">content</span> _ <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs3', 72)" onmouseover="showTip(event, 'fs3', 72)" class="i">Freya</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs33', 73)" onmouseover="showTip(event, 'fs33', 73)" class="i">init</span>
+      {  <span onmouseout="hideTip(event, 'fs34', 74)" onmouseover="showTip(event, 'fs34', 74)" class="i">Description</span> <span class="o">=</span>
+            {  <span class="i">Charset</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs27', 75)" onmouseover="showTip(event, 'fs27', 75)" class="i">Some</span> <span class="i">Charset</span><span class="o">.</span><span class="i">Utf8</span>
+               <span class="i">Encodings</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs35', 76)" onmouseover="showTip(event, 'fs35', 76)" class="i">None</span>
+               <span class="i">MediaType</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs27', 77)" onmouseover="showTip(event, 'fs27', 77)" class="i">Some</span> <span class="i">MediaType</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 78)" onmouseover="showTip(event, 'fs32', 78)" class="i">Text</span>
+               <span class="i">Languages</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs35', 79)" onmouseover="showTip(event, 'fs35', 79)" class="i">None</span> }
+         <span onmouseout="hideTip(event, 'fs36', 80)" onmouseover="showTip(event, 'fs36', 80)" class="i">Data</span> <span class="o">=</span> <span class="s">&quot;Hello World!&quot;B</span> } }
+
+<span class="c">// Resource</span>
+<span class="k">let</span> <span class="i">helloWorld</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs37', 81)" onmouseover="showTip(event, 'fs37', 81)" class="i">freyaMachine</span> {
+        <span onmouseout="hideTip(event, 'fs38', 82)" onmouseover="showTip(event, 'fs38', 82)" class="i">using</span> <span onmouseout="hideTip(event, 'fs39', 83)" onmouseover="showTip(event, 'fs39', 83)" class="i">http</span>
+        <span class="i">mediaTypesSupported</span> <span class="i">mediaTypes</span>
+        <span class="i">methodsSupported</span> <span class="i">methods</span>
+        <span class="i">serviceAvailable</span> <span class="i">available</span>
+        <span class="i">handleOk</span> <span class="i">content</span> } 
+
+<span class="k">type</span> <span class="i">Exercise</span>() <span class="o">=</span>
+    <span class="k">member</span> <span class="i">__</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 84)" onmouseover="showTip(event, 'fs15', 84)" class="i">Configuration</span>() <span class="o">=</span>
+        <span onmouseout="hideTip(event, 'fs16', 85)" onmouseover="showTip(event, 'fs16', 85)" class="i">OwinAppFunc</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 86)" onmouseover="showTip(event, 'fs17', 86)" class="i">ofFreya</span> <span class="i">helloWorld</span>
+
+[&lt;<span onmouseout="hideTip(event, 'fs18', 87)" onmouseover="showTip(event, 'fs18', 87)" class="i">EntryPoint</span>&gt;]
+<span class="k">let</span> <span class="i">main</span> _ <span class="o">=</span>
+    <span class="k">let</span> <span class="i">url</span> <span class="o">=</span> <span class="s">&quot;http://localhost:8080&quot;</span>
+    <span class="k">let</span> _ <span class="o">=</span> <span class="i">WebApp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs19', 88)" onmouseover="showTip(event, 'fs19', 88)" class="i">Start</span><span class="o">&lt;</span><span class="i">Exercise</span><span class="o">&gt;</span> (<span class="i">url</span>)
+    <span onmouseout="hideTip(event, 'fs21', 89)" onmouseover="showTip(event, 'fs21', 89)" class="i">Console</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 90)" onmouseover="showTip(event, 'fs22', 90)" class="i">WriteLine</span>(<span class="s">&quot;Serving site at &quot;</span> <span class="o">+</span> <span class="i">url</span>)
+    <span onmouseout="hideTip(event, 'fs21', 91)" onmouseover="showTip(event, 'fs21', 91)" class="i">Console</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 92)" onmouseover="showTip(event, 'fs22', 92)" class="i">WriteLine</span>(<span class="s">&quot;Press ENTER to cancel&quot;</span>)
+    <span class="k">let</span> _ <span class="o">=</span> <span onmouseout="hideTip(event, 'fs21', 93)" onmouseover="showTip(event, 'fs21', 93)" class="i">Console</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 94)" onmouseover="showTip(event, 'fs23', 94)" class="i">ReadLine</span> ()
+    <span class="n">0</span>
+</code></pre></td>
+</tr>
+</table>
+</section>
+</section>
+<section >
+<h1>Examples</h1>
+<ul>
+<li>Routing</li>
+<li>Content Negotiation</li>
+<li>HTML Rendering</li>
+</ul>
+</section>
+<section >
+<h1>Questions?</h1>
+</section>
+
+
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
+
