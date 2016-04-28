@@ -1,0 +1,11 @@
+redirects: on
+framework: = net461
+source https://nuget.org/api/v2
+
+nuget DotLiquid
+nuget Freya ~> 3 prerelease
+nuget Microsoft.AspNet.Identity.Core
+nuget Microsoft.Owin.Diagnostics
+nuget Microsoft.Owin.SelfHost
+nuget Microsoft.Owin.Security.Cookies
+nuget Newtonsoft.Json

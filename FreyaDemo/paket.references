@@ -1,0 +1,7 @@
+DotLiquid
+Freya
+Microsoft.AspNet.Identity.Core
+Microsoft.Owin.Diagnostics
+Microsoft.Owin.SelfHost
+Microsoft.Owin.Security.Cookies
+Newtonsoft.Json
